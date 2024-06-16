@@ -4,7 +4,6 @@ import * as OSS from 'ali-oss';
 import * as dotenv from 'dotenv';
 
 dotenv.config();
-console.log(process.env.ACCESS_KEY);
 const config = new OpenApi.Config({
   accessKeyId: process.env.ACCESS_KEY,
   accessKeySecret: process.env.ACCESS_KEY_SECRET,
