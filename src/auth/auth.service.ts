@@ -14,10 +14,14 @@ import { getRandomCode } from 'shared/utils';
 import { authClient } from 'shared/utils/ali';
 import { User } from 'src/user/entities/user.entity';
 import { UserService } from 'src/user/user.service';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userService: UserService,
+    private readonly jwtService: JwtService,
+  ) {}
   // 发送验证码
   async sendCodeMsg(tel: string) {
     // 不知道是啥，反正配置让加
@@ -116,9 +120,11 @@ export class AuthService {
       };
     }
     if (user.code === code) {
+      const token = this.jwtService.sign({ id: user.id });
       return {
         code: SUCCESS,
         message: '登录成功',
+        data: token,
       };
     }
   }
