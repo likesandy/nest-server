@@ -10,4 +10,12 @@ export class AuthResolver {
   async sendCodeMsg(@Args('tel') tel: string): Promise<Result> {
     return await this.authService.sendCodeMsg(tel);
   }
+
+  @Mutation(() => Result, { description: '登录' })
+  async login(
+    @Args('tel') tel: string,
+    @Args('code') code: string,
+  ): Promise<Result> {
+    return this.authService.login(tel, code);
+  }
 }

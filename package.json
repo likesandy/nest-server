@@ -34,6 +34,7 @@
     "@nestjs/typeorm": "^10.0.2",
     "ali-oss": "^6.20.0",
     "class-validator": "^0.14.1",
+    "dayjs": "^1.11.11",
     "dotenv": "^16.4.5",
     "graphql": "^16.8.2",
     "mysql2": "^3.10.0",
