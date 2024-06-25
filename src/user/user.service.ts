@@ -29,6 +29,7 @@ export class UserService {
 
   // 更新一个用户
   async update(id: string, entity: DeepPartial<User>): Promise<boolean> {
+    console.log('🚀 ~ UserService ~ update ~ entity:', entity);
     const res = await this.UserRepository.update(id, entity);
     if (res.affected > 0) {
       return true;

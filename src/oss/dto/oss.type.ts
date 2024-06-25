@@ -8,4 +8,10 @@ export class OssType {
   signature: string;
   @Field(() => String, { description: '密钥' })
   accessId: string;
+  @Field(() => String, { description: '目录' })
+  dir: string;
+  @Field(() => String, { description: 'host' })
+  host: string;
+  @Field(() => String, { description: '过期时间' })
+  expire: string;
 }

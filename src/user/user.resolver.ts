@@ -1,9 +1,14 @@
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Context, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { UserInput } from './dto/user-input.type';
 import { UserType } from './dto/user.type';
 import { UserService } from './user.service';
+import { UseGuards } from '@nestjs/common';
+import { GQLAuthGuard } from '@/guards/auth.guard';
+import { Result } from '@/auth/dto/result.type';
+import { SUCCESS, UPDATE_ERROR } from '@/common/constants/code';
 
 @Resolver()
+@UseGuards(GQLAuthGuard)
 export class UserResolver {
   constructor(private readonly userService: UserService) {}
 
@@ -27,11 +32,27 @@ export class UserResolver {
     return await this.userService.del(id);
   }
 
-  @Mutation(() => Boolean, { description: '更新用户' })
-  async update(
+  @Mutation(() => Result, { description: '更新用户' })
+  async updateUserInfo(
     @Args('id') id: string,
     @Args('params') params: UserInput,
-  ): Promise<boolean> {
-    return await this.userService.update(id, params);
+  ): Promise<Result> {
+    const res = await this.userService.update(id, params);
+    if (res) {
+      return {
+        code: SUCCESS,
+        message: '更新成功',
+      };
+    }
+    return {
+      code: UPDATE_ERROR,
+      message: '更新失败',
+    };
+  }
+
+  @Query(() => UserType, { description: '获取当前用户信息' })
+  async getUserInfo(@Context() ctx: any): Promise<UserType> {
+    const id = ctx.req.user.id;
+    return await this.userService.find(id);
   }
 }

@@ -11,9 +11,11 @@ const config = new OpenApi.Config({
 });
 export const authClient = new Dysmsap.default(config);
 
-export const ossClient = new OSS({
+export const ossConfig = {
   region: 'oss-cn-chengdu',
   accessKeyId: process.env.ACCESS_KEY,
   accessKeySecret: process.env.ACCESS_KEY_SECRET,
   bucket: 'nest-server',
-});
+};
+
+export const ossClient = new OSS(ossConfig);

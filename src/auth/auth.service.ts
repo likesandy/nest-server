@@ -9,12 +9,12 @@ import {
   CODE_SEND_ERROR,
   SUCCESS,
   UPDATE_ERROR,
-} from 'common/constants/code';
-import { getRandomCode } from 'shared/utils';
-import { authClient } from 'shared/utils/ali';
-import { User } from 'src/user/entities/user.entity';
-import { UserService } from 'src/user/user.service';
+} from '@/common/constants/code';
+import { UserService } from '@/user/user.service';
 import { JwtService } from '@nestjs/jwt';
+import { getRandomCode } from '@/shared/utils';
+import { authClient } from '@/shared/utils/ali';
+import { User } from '@/user/entities/user.entity';
 
 @Injectable()
 export class AuthService {
